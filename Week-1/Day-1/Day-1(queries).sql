@@ -34,3 +34,98 @@ WHERE LENGTH(name) = 9;
 -- 10.Select employees whose names have 'o' as the second character.
 SELECT * FROM Employee
 WHERE name LIKE '_o%';
+
+-- 11.Select employees hired in the year 2020.
+SELECT * FROM Employee
+WHERE YEAR(hire_date) = 2020;
+
+-- 12.Select employees hired in january of any year.
+SELECT * FROM Employee
+WHERE MONTH(hire_date) = 1;
+
+-- 13.Select employees hired before 2019.
+SELECT * FROM Employee
+WHERE hire_date < '2019-01-01';
+
+-- 14.Select employees hired on or after March 1, 2021.
+SELECT * FROM Employee
+WHERE hire_date >= '2021-03-01';
+
+-- 15.Select employees hired in the last 2 years.
+SELECT * FROM Employee
+WHERE hire_date >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);
+
+-- 16.Select the total salary of all employees.
+SELECT SUM(salary) AS total_salary FROM Employee;
+
+-- 17.Select the average salary of employees.
+SELECT AVG(salary) AS avg_salary FROM Employee;
+
+-- 18.Select the minimum salary from the Employee table.
+SELECT MIN(salary) AS min_salary FROM Employee;
+
+-- 19.Select the number of employees in each department.
+SELECT department_id, COUNT(*) AS num_employees
+FROM Employee
+GROUP BY department_id;
+
+-- 20.Select the average salary of employees in each department.
+SELECT department_id, AVG(salary) AS avg_salary
+FROM Employee
+GROUP BY department_id;
+
+-- 21.Select the total salary for each department.
+SELECT department_id, SUM(salary) AS total_salary
+FROM Employee
+GROUP BY department_id;
+
+-- 22.Select the average age of employees in each department.
+SELECT department_id, AVG(age) as avg_age
+FROM Employee
+GROUP BY department_id;
+
+-- 23.Select the number of employees hired in each year.
+ SELECT YEAR(hire_date) AS hire_year, COUNT(*) AS num_employees
+ FROM Employee
+ GROUP BY YEAR(hire_date);
+
+-- 24.Select the highest salary in each department.
+SELECT department_id AS department_id, MAX(salary) AS max_salary
+FROM Employee
+GROUP BY department_id;
+
+-- 25.Select the department with the highest average salary.
+SELECT department_id, AVG(salary) AS avg_salary
+FROM Employee
+GROUP BY department_id
+ORDER BY avg_salary DESC LIMIT 1;
+
+-- 26.Select the department with more than 2 employees.
+SELECT department_id, COUNT(*) AS num_employees
+FROM Employee
+GROUP BY department_id
+HAVING COUNT(*) > 2;
+
+-- 27.Select the department with an average salary greater than 55000.
+SELECT department_id, AVG(salary) AS avg_salary
+FROM Employee
+GROUP BY department_id
+HAVING AVG(salary) > 55000;
+
+-- 28.Select years with more than 1 employee hired.
+SELECT YEAR(hire_date) AS hire_year, COUNT(*) AS num_employees
+FROM Employee
+GROUP BY YEAR(hire_date)
+HAVING COUNT(*) > 1; 
+
+-- 29.Select the departments with a total salary expense less than 100000.
+SELECT department_id, SUM(salary) AS total_salary
+FROM Employee  
+GROUP BY department_id
+HAVING SUM(salary) < 100000;
+
+-- 30.Select departments with maximum salary above 75000.
+SELECT department_id, MAX(salary) AS max_salary
+FROM Employee
+GROUP BY department_id
+HAVING MAX(salary) > 75000;
