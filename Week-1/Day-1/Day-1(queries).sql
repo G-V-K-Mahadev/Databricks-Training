@@ -129,3 +129,51 @@ SELECT department_id, MAX(salary) AS max_salary
 FROM Employee
 GROUP BY department_id
 HAVING MAX(salary) > 75000;
+
+-- 31.Select all employees ordered by salary in ascending order.
+SELECT * FROM Employee
+ORDER BY salary ASC;
+
+-- 32.Select all employees ordered by their age in descending order.
+SELECT * FROM Employee
+ORDER BY age DESC;
+
+-- 33.Select all employees ordered by their hire date in ascending order.
+SELECT * FROM Employee
+ORDER BY hire_date ASC;
+
+-- 34.Select employees ordered by department and then by their salary.
+SELECT * FROM Employee
+ORDER BY department_id, salary;
+
+-- 35.Select departments ordered by the total salary of their employees.
+SELECT department_id, SUM(salary) AS total_salary
+FROM Employee
+GROUP BY department_id
+ORDER BY total_salary DESC;
+
+-- 36.Select employee names along with their department names.
+SELECT e.name, d.name AS department_name
+FROM Employee e
+JOIN Department d ON e.department_id = d.department_id;
+
+-- 37.Select project names along with the department names they belong to.
+SELECT p.name AS project_name, d.name AS department_name
+FROM Project p
+JOIN Department d ON p.department_id = d.department_id;
+
+-- 38.Select employee names and their corresponding project names.
+SELECT e.name AS employee_name, p.name AS project_name
+FROM Employee e
+JOIN Department d ON e.department_id = d.department_id
+JOIN Project p ON d.department_id = p.department_id;
+
+-- 39.Select all employees and their departments, including those without a department.
+SELECT e.name AS employee_name, d.name AS department_name
+FROM Employee e
+LEFT JOIN Department d ON e.department_id = d.department_id;
+
+-- 40.Select all departments and their employees, including departments without employees.
+SELECT d.name AS department_name, e.name AS employee_name
+FROM Department d
+LEFT JOIN Employee e ON d.department_id = e.department_id;
